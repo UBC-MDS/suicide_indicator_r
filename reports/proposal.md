@@ -6,10 +6,7 @@ This report outlines the identified problem and proposed dashboard solution.
 
 ## Motivation & Purpose
 
-Our Data Science team has identified an issue that.....
-
-Useful info(Ty):
-- There is significant data posted like the dataset we are using such as the [Global Mortality database posted by the World Health Organization (WHO)](https://www.who.int/data/data-collection-tools/who-mortality-database) but no easy way to work with it. 
+According to [World Health Organization](https://www.who.int/health-topics/suicide), suicides take away the lives of over 700,00 people globally every year, but many of these are preventable if there are sufficient support resources available. If we could understand the correlation between suicides among different cohorts and across the social economic spectrum, then we may be able to target the appropriate resources to a specific demographic of population. To address this challenge, we propose building a data visualization app that allows doctors and mental health researchers to visually explore a dataset of suicides in countries around the world. Our app will show various socio-economic measurements and allow users to explore the data by filtering and re-ordering on different variables to order to compare socio-economic factors that may affect suicide rates.
 
 ## Data Description
 
