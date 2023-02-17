@@ -9,15 +9,20 @@
 
 # Suicide Indicators App
 
+# Load the required libraries
+
 library(shiny)
 library(ggplot2)
 library(tidyverse)
 library(leaflet)
 
+# Load the dataset
+
 dataset <-
   read.csv("/Users/stepan_zaiatc/Desktop/suicide_indicator_r/data/master.csv")
 
-# Define UI
+# Define the user interface (UI) for the shiny app and create the first tab of the app for country-wide comparison
+
 ui <- navbarPage(
   "Suicide Identification Dashboard",
   tabPanel(
@@ -53,6 +58,9 @@ ui <- navbarPage(
       )
     )
   ),
+  
+# Create the second tab of the app for displaying the suicide rate by country on a map
+
   tabPanel(
     "Suicide Rate by Country",
     titlePanel("Suicide Rate by Country"),
@@ -68,6 +76,9 @@ ui <- navbarPage(
     ),
     mainPanel(leafletOutput("suicide_map")))
   ),
+
+# Create the third tab of the app for displaying the GDP by country on a map
+
   tabPanel(
     "GDP by Country",
     titlePanel("GDP by Country"),
@@ -85,9 +96,12 @@ ui <- navbarPage(
   )
 )
 
-# Define server
+# Define the server function
+
 server <- function(input, output, session) {
-  # Create reactive data for selected range of years, countries of interest
+
+# Create reactive data for selected range of years, countries of interest
+  
   subset_data <- reactive({
     subset(
       dataset,
@@ -98,8 +112,11 @@ server <- function(input, output, session) {
   })
   
   
-  # Bar chart representing suicide rate by gender
+# Create a stacked bar plot for the suicide rate by gender for both countries
   output$stacked_bars <- renderPlot({
+
+# Data wrangling to produce data most suitable for the plot
+
     calc_data <- dataset |>
       group_by(year, country, sex) %>%
       summarise(
@@ -108,12 +125,14 @@ server <- function(input, output, session) {
         suicides_100k_pop_recal = sum(suicides_no) / sum(population) * 100
       ) %>%
       ungroup()
-    
+
     data <-
       calc_data |> filter(country == input$country1 |
                             country == input$country2) |>
       filter(year >= input$year_range[1] &
                year <= input$year_range[2])
+
+# Create clustered stacked bar chart
     
     ggplot(data,
            aes(
@@ -159,7 +178,9 @@ server <- function(input, output, session) {
       labs(title = "Plot", x = "Plot", y = "Plot") +
       theme_classic()
   })
-  
+
+# Create a heatmap object
+
   output$suicide_map <- renderLeaflet({
     leaflet() %>%
       addTiles() %>%
@@ -175,7 +196,6 @@ server <- function(input, output, session) {
                  lat = 49.246292,
                  popup = "Vancouver")
   })
-  
 }
 
 # Run the application
