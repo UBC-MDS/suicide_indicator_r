@@ -5,3 +5,7 @@ The design of the dashboard is set up with three main options or tabs. The first
 
 Here is the prototype for our planned dashboard.
 ![dash_prototype](./img/dash_design.png)
+
+
+## License 
+Licensed under the terms of the [MIT license](https://github.com/UBC-MDS/suicide_indicator_r/blob/main/LICENSE).
