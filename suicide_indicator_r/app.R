@@ -9,15 +9,19 @@
 
 # Suicide Indicators App
 
+# Load necessary libraries for the app
 library(shiny)
 library(ggplot2)
 library(tidyverse)
 library(leaflet)
 
+# Read the dataset from the specified location
 dataset <-
   read.csv("/Users/stepan_zaiatc/Desktop/suicide_indicator_r/data/master.csv")
 
-# Define UI
+# Define the user interface (UI) for the shiny app
+# Create the first tab of the app for country-wide comparison
+
 ui <- navbarPage(
   "Suicide Identification Dashboard",
   tabPanel(
@@ -53,6 +57,7 @@ ui <- navbarPage(
       )
     )
   ),
+# Create the second tab of the app for displaying the suicide rate by country on a map
   tabPanel(
     "Suicide Rate by Country",
     titlePanel("Suicide Rate by Country"),
@@ -68,6 +73,8 @@ ui <- navbarPage(
     ),
     mainPanel(leafletOutput("suicide_map")))
   ),
+
+# Create the third tab of the app for displaying the GDP by country on a map
   tabPanel(
     "GDP by Country",
     titlePanel("GDP by Country"),
@@ -85,7 +92,7 @@ ui <- navbarPage(
   )
 )
 
-# Define server
+# Define the server function
 server <- function(input, output, session) {
   # Create reactive data for selected range of years, countries of interest
   subset_data <- reactive({
@@ -98,7 +105,8 @@ server <- function(input, output, session) {
   })
   
   
-  # Bar chart representing suicide rate by gender
+# Create reactive data for selected range of years and countries
+# Calculate the proportion of suicides to the total population
   output$stacked_bars <- renderPlot({
     calc_data <- dataset |>
       group_by(year, country, sex) %>%
@@ -114,7 +122,8 @@ server <- function(input, output, session) {
                             country == input$country2) |>
       filter(year >= input$year_range[1] &
                year <= input$year_range[2])
-    
+
+# Create a stacked bar plot for the suicide rate by gender for both countries    
     ggplot(data,
            aes(
              x = as.Date(paste0(year, "-01-01")),
@@ -145,7 +154,8 @@ server <- function(input, output, session) {
       scale_x_date(date_labels = "%Y", date_breaks = "1 year") +
       scale_y_continuous(labels = scales::percent_format())
   })
-  
+
+# Sample plots will go in here
   output$grouped_bars <- renderPlot({
     ggplot(dataset, aes(x = year, y = 'suicides_100k_pop', fill = sex)) +
       geom_bar(stat = "identity") +
@@ -159,7 +169,8 @@ server <- function(input, output, session) {
       labs(title = "Plot", x = "Plot", y = "Plot") +
       theme_classic()
   })
-  
+
+# Heatmaps will go in here  
   output$suicide_map <- renderLeaflet({
     leaflet() %>%
       addTiles() %>%
