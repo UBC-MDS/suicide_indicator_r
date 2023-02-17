@@ -7,12 +7,17 @@ The design of the dashboard is set up with three main options or tabs. The first
 Here is the prototype for our planned dashboard.
 ![dash_prototype](./img/dash_design.png)
 
-## Contributors
+## Authors
+
 - Qurat-ul-Ain Azim
-- Stepan Ziatec
+- Stepan Zaiatc
 - Ty Andrews
 - Zilong Yi
 
+## Contributing
+
+Interested in contributing? Check out the contributing guidelines. Please note that this project is released with a Code of Conduct. By contributing to this project, you agree to abide by its terms.
 
 ## License 
-Licensed under the terms of the [MIT license](https://github.com/UBC-MDS/suicide_indicator_r/blob/main/LICENSE).
+
+`suicide_indicator_r` was created by Qurat-ul-Ain Azim, Stepan Zaiatc, Ty Andrews and Zilong Yi. The materials of this project are licensed under the [MIT license](https://github.com/UBC-MDS/suicide_indicator_r/blob/main/LICENSE). If re-using/re-mixing please provide attribution and link to this webpage.
