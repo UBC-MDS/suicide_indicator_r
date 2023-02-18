@@ -17,7 +17,7 @@ library(leaflet)
 
 # Read the dataset from the specified location
 dataset <-
-  read.csv("/Users/stepan_zaiatc/Desktop/suicide_indicator_r/data/master.csv")
+  read.csv("data/master.csv")
 
 # Define the user interface (UI) for the shiny app
 # Create the first tab of the app for country-wide comparison
