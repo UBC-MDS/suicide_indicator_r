@@ -14,10 +14,28 @@ library(shiny)
 library(ggplot2)
 library(tidyverse)
 library(leaflet)
+library(RColorBrewer)
 
 # Read the dataset from the specified location
 dataset <-
-  read.csv("/Users/stepan_zaiatc/Desktop/suicide_indicator_r/data/master.csv")
+  read.csv("../data/master.csv")
+
+library(rgdal)
+world_spdf <- readOGR( 
+  dsn= path.expand(paste0("../data/maps/")) , 
+  layer="TM_WORLD_BORDERS-0-3",
+  verbose=FALSE
+)
+
+# Clean the data object
+library(dplyr)
+world_spdf@data$POP2005[ which(world_spdf@data$POP2005 == 0)] = NA
+world_spdf@data$POP2005 <- as.numeric(as.character(world_spdf@data$POP2005)) / 1000000 %>% round(2)
+
+# Create a color palette for the map:
+mypalette <- colorNumeric( palette="viridis", domain=world_spdf@data$POP2005, na.color="transparent")
+mypalette(c(45,43))
+
 
 # Define the user interface (UI) for the shiny app
 # Create the first tab of the app for country-wide comparison
@@ -63,12 +81,14 @@ ui <- navbarPage(
     titlePanel("Suicide Rate by Country"),
     sidebarLayout(sidebarPanel(
       sliderInput(
-        "year_range",
-        "Select Year Range:",
+        "suicide_map_year",
+        "Select Year:",
         min = 1987,
         max = 2017,
-        value = c(1987, 2017),
-        sep = ""
+        value = 2005,
+        sep = "",
+        animate = FALSE
+          # animationOptions(interval = 300, loop = TRUE) # runs to slow with updating
       )
     ),
     mainPanel(leafletOutput("suicide_map")))
@@ -172,11 +192,67 @@ server <- function(input, output, session) {
 
 # Heatmaps will go in here  
   output$suicide_map <- renderLeaflet({
-    leaflet() %>%
-      addTiles() %>%
-      addMarkers(lng = -123.116226,
-                 lat = 49.246292,
-                 popup = "Vancouver")
+
+    # get the input year for reference throughout
+    selected_year <- input$suicide_map_year
+    
+    # filter the primary dataset to that year and summarize
+    year_data <- dataset |>
+      filter(
+        year == selected_year | is.na(year)
+      ) |>
+      group_by(country) |>
+      summarise(
+        year = selected_year, 
+        suicides_100k_pop = mean(suicides_100k_pop),
+        gdp_per_capita = mean(gdp_per_capita....),
+        population = sum(population)
+      ) 
+    
+    # use a copy of polygon object to not over write
+    year_spdf <- world_spdf
+    
+    # combine subset suicide data with polygon data
+    year_spdf@data <- merge(x = world_spdf@data, y = year_data,
+                            by.x = "NAME", by.y = "country", all.x = TRUE
+    ) |>
+      select(FIPS, ISO2, ISO3, UN, everything())
+    
+    # order of the data must match the original polygon order otherwise the
+    # polygons don't line up on the map/labels
+    reordered_idx <- match(world_spdf@data$NAME, year_spdf@data$NAME)
+    year_spdf@data <- year_spdf@data[reordered_idx, ]
+    
+    # Create a color palette with handmade bins.
+    mybins <- c(0,10,20,30,40,50,Inf)
+    mypalette <- colorBin( palette="YlOrBr", domain=year_spdf@data$suicides_100k_pop, na.color="transparent", bins=mybins)
+    
+    # Prepare the text for tooltips:
+    mytext <- paste(
+      "Country: ", year_spdf@data$NAME,"<br/>", 
+      "Year: ", year_spdf@data$year, "<br/>",
+      "Suicides per 100k: ", round(year_spdf@data$suicides_100k_pop, 2), 
+      sep="") %>%
+      lapply(htmltools::HTML)
+    
+    # Final Map
+    m <- leaflet(year_spdf) %>% 
+      addTiles()  %>% 
+      setView( lat=10, lng=0 , zoom=2) %>%
+      addPolygons( 
+        fillColor = ~mypalette(suicides_100k_pop), 
+        stroke=TRUE, 
+        fillOpacity = 0.9, 
+        color="white", 
+        weight=0.3,
+        label = mytext,
+        labelOptions = labelOptions( 
+          style = list("font-weight" = "normal", padding = "3px 8px"), 
+          textsize = "13px", 
+          direction = "auto"
+        )
+      ) %>%
+      addLegend( pal=mypalette, values=~population, opacity=0.9, title = "Suicides Per 100k", position = "bottomleft" )
   })
   
   output$gdp_map <- renderLeaflet({
