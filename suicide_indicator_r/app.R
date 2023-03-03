@@ -16,6 +16,7 @@ library(tidyverse)
 library(leaflet)
 library(RColorBrewer)
 library(rgdal)
+library(bslib)
 
 # Read the dataset from the specified location
 dataset <-
@@ -33,6 +34,7 @@ world_spdf <- readOGR(
 
 ui <- navbarPage(
     "Suicide Identification Dashboard",
+    theme = bs_theme(bootswatch = "minty"),
     tabPanel(
         "Country Wide Comparison",
         titlePanel("Country Wide Comparison"),
@@ -74,28 +76,37 @@ ui <- navbarPage(
         titlePanel("Suicide Rate by Country"),
         sidebarLayout(
             sidebarPanel(
-                h4("Select the year you want to observe geographical suicide trends for."),
-                br(),
-                p(
-                    "Hover over the country to precise Suicide per 100k values & Gross Domestic",
-                    "Product (GDP) per Capita of that country in USD."
-                ),
                 sliderInput(
-                    "suicide_map_year",
-                    "Select Year:",
+                    "year_range",
+                    "Select Year Range:",
                     min = 1987,
                     max = 2017,
-                    value = 2007,
-                    sep = "",
-                    animate = FALSE
-                    # animationOptions(interval = 300, loop = TRUE) # runs to slow with updating
+                    value = c(1987, 2017),
+                    sep = ""
                 )
             ),
-            mainPanel(
-                leafletOutput("suicide_map", height = "75vh")
-            )
+            mainPanel(leafletOutput("suicide_map"))
         )
     ),
+
+    # Create the third tab of the app for displaying the GDP by country on a map
+    tabPanel(
+        "GDP by Country",
+        titlePanel("GDP by Country"),
+        sidebarLayout(
+            sidebarPanel(
+                sliderInput(
+                    "year_range",
+                    "Select Year Range:",
+                    min = 1987,
+                    max = 2017,
+                    value = c(1987, 2017),
+                    sep = ""
+                )
+            ),
+            mainPanel(leafletOutput("gdp_map"))
+        )
+    )
 )
 
 # Define the server function
@@ -115,12 +126,12 @@ server <- function(input, output, session) {
     # Calculate the proportion of suicides to the total population
     output$stacked_bars <- renderPlot({
         calc_data <- dataset |>
-            group_by(year, country, sex) %>%
+            group_by(year, country, sex) |>
             summarise(
                 suicides = sum(suicides_no),
                 population = sum(population),
                 suicides_100k_pop_recal = sum(suicides_no) / sum(population) * 100
-            ) %>%
+            ) |>
             ungroup()
 
         data <-
@@ -136,20 +147,21 @@ server <- function(input, output, session) {
             aes(
                 x = as.Date(paste0(year, "-01-01")),
                 y = suicides_100k_pop_recal,
-                fill = sex
+                fill = sex,
             )
         ) +
             geom_bar(stat = "identity", position = "stack") +
             labs(
                 title = sprintf(
-                    "Comparison of Suicide Rate in %s and %s between %s and %s by Gender",
+                    "                  Suicide Rate in %s and %s between
+                                        %s and %s by Gender",
                     input$country1,
                     input$country2,
                     input$year_range[1],
                     input$year_range[2]
                 ),
                 x = "Year",
-                y = "Suicides per 100k Population"
+                y = "Suicides per 100k Population (%)"
             ) +
             theme_classic() +
             scale_fill_manual(values = c("#D55E00", "#0072B2"), name = "Gender:") +
@@ -158,9 +170,10 @@ server <- function(input, output, session) {
                 strip.background = element_blank(),
                 strip.text = element_text(size = 12, face = "bold"),
                 legend.position = "bottom",
-                legend.title = element_text(size = 12, face = "bold")
+                legend.title = element_text(size = 12, face = "bold"),
+                axis.text.x = element_text(angle = 45, hjust = 1)
             ) +
-            scale_x_date(date_labels = "%Y", date_breaks = "1 year") +
+            scale_x_date(date_labels = "%Y", date_breaks = "2 year") +
             scale_y_continuous(labels = scales::percent_format())
     })
 
@@ -195,7 +208,7 @@ server <- function(input, output, session) {
             labs(
                 title = sprintf(
                     "Suicide Counts in %s and %s between
-          %s and %s by Gender",
+          %s and %s by Age Group",
                     input$country1,
                     input$country2,
                     input$year_range[1],
