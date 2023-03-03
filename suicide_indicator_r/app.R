@@ -89,8 +89,8 @@ ui <- navbarPage(
     mainPanel(
       leafletOutput("suicide_map",height = "75vh")
       )
-      )
-    ),
+    )
+  ),
 
 )
 
