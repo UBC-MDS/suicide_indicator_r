@@ -24,6 +24,7 @@ dataset <-
 
 ui <- navbarPage(
   "Suicide Identification Dashboard",
+  theme = bs_theme(bootswatch = "minty"),
   tabPanel(
     "Country Wide Comparison",
     titlePanel("Country Wide Comparison"),
@@ -57,7 +58,7 @@ ui <- navbarPage(
       )
     )
   ),
-# Create the second tab of the app for displaying the suicide rate by country on a map
+  # Create the second tab of the app for displaying the suicide rate by country on a map
   tabPanel(
     "Suicide Rate by Country",
     titlePanel("Suicide Rate by Country"),
@@ -73,8 +74,8 @@ ui <- navbarPage(
     ),
     mainPanel(leafletOutput("suicide_map")))
   ),
-
-# Create the third tab of the app for displaying the GDP by country on a map
+  
+  # Create the third tab of the app for displaying the GDP by country on a map
   tabPanel(
     "GDP by Country",
     titlePanel("GDP by Country"),
@@ -105,16 +106,16 @@ server <- function(input, output, session) {
   })
   
   
-# Create reactive data for selected range of years and countries
-# Calculate the proportion of suicides to the total population
+  # Create reactive data for selected range of years and countries
+  # Calculate the proportion of suicides to the total population
   output$stacked_bars <- renderPlot({
     calc_data <- dataset |>
-      group_by(year, country, sex) %>%
+      group_by(year, country, sex) |>
       summarise(
         suicides = sum(suicides_no),
         population = sum(population),
         suicides_100k_pop_recal = sum(suicides_no) / sum(population) * 100
-      ) %>%
+      ) |>
       ungroup()
     
     data <-
@@ -122,25 +123,26 @@ server <- function(input, output, session) {
                             country == input$country2) |>
       filter(year >= input$year_range[1] &
                year <= input$year_range[2])
-
-# Create a stacked bar plot for the suicide rate by gender for both countries    
+    
+    # Create a stacked bar plot for the suicide rate by gender for both countries    
     ggplot(data,
            aes(
              x = as.Date(paste0(year, "-01-01")),
              y = suicides_100k_pop_recal,
-             fill = sex
+             fill = sex,
            )) +
       geom_bar(stat = "identity", position = "stack") +
       labs(
         title = sprintf(
-          "Comparison of Suicide Rate in %s and %s between %s and %s by Gender",
+          "                  Suicide Rate in %s and %s between 
+                                        %s and %s by Gender",
           input$country1,
           input$country2,
           input$year_range[1],
           input$year_range[2]
         ),
         x = "Year",
-        y = "Suicides per 100k Population"
+        y = "Suicides per 100k Population (%)"
       ) +
       theme_classic() +
       scale_fill_manual(values = c("#D55E00", "#0072B2"), name = "Gender:") +
@@ -149,9 +151,10 @@ server <- function(input, output, session) {
         strip.background = element_blank(),
         strip.text = element_text(size = 12, face = "bold"),
         legend.position = "bottom",
-        legend.title = element_text(size = 12, face = "bold")
+        legend.title = element_text(size = 12, face = "bold"),
+        axis.text.x = element_text(angle = 45, hjust = 1)
       ) +
-      scale_x_date(date_labels = "%Y", date_breaks = "1 year") +
+      scale_x_date(date_labels = "%Y", date_breaks = "2 year") +
       scale_y_continuous(labels = scales::percent_format())
   })
 
@@ -181,7 +184,7 @@ server <- function(input, output, session) {
       labs(
         title = sprintf(
           "Suicide Counts in %s and %s between 
-          %s and %s by Gender",
+          %s and %s by Age Group",
           input$country1,
           input$country2,
           input$year_range[1],
