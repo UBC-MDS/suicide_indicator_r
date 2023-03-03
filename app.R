@@ -8,12 +8,14 @@
 #
 
 # Suicide Indicators App
+options(shiny.autoreload = TRUE)
 
 # Load necessary libraries for the app
 library(shiny)
 library(ggplot2)
 library(tidyverse)
 library(leaflet)
+library(bslib)
 
 # Read the dataset from the specified location
 dataset <-
@@ -24,6 +26,7 @@ dataset <-
 
 ui <- navbarPage(
   "Suicide Identification Dashboard",
+  theme = bs_theme(bootswatch = "minty"),
   tabPanel(
     "Country Wide Comparison",
     titlePanel("Country Wide Comparison"),
@@ -174,7 +177,7 @@ server <- function(input, output, session) {
   output$suicide_map <- renderLeaflet({
     leaflet() %>%
       addTiles() %>%
-      addMarkers(lng = -123.116226,
+      addCircleMarkers(lng = -123.116226,
                  lat = 49.246292,
                  popup = "Vancouver")
   })
