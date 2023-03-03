@@ -147,7 +147,7 @@ server <- function(input, output, session) {
                 y = "Suicides per 100k Population (%)"
             ) +
             theme_classic() +
-            scale_fill_manual(values = c("#D55E00", "#0072B2"), name = "Gender:") +
+            scale_fill_manual(values = c("#FF9999", "#56B4E9"), name = "Gender:") +
             facet_grid(cols = vars(country)) +
             theme(
                 strip.background = element_blank(),
