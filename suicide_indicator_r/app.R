@@ -71,36 +71,27 @@ ui <- navbarPage(
     "Suicide Rate by Country",
     titlePanel("Suicide Rate by Country"),
     sidebarLayout(sidebarPanel(
+      h4("Select the year you want to observe geographical suicide trends for."),
+      br(),
+      p("Hover over the country to precise Suicide per 100k values & Gross Domestic",
+      "Product (GDP) per Capita of that country in USD."),
       sliderInput(
         "suicide_map_year",
         "Select Year:",
         min = 1987,
         max = 2017,
-        value = 2005,
+        value = 2007,
         sep = "",
         animate = FALSE
           # animationOptions(interval = 300, loop = TRUE) # runs to slow with updating
       )
     ),
-    mainPanel(leafletOutput("suicide_map")))
-  ),
-
-# Create the third tab of the app for displaying the GDP by country on a map
-  tabPanel(
-    "GDP by Country",
-    titlePanel("GDP by Country"),
-    sidebarLayout(sidebarPanel(
-      sliderInput(
-        "year_range",
-        "Select Year Range:",
-        min = 1987,
-        max = 2017,
-        value = c(1987, 2017),
-        sep = ""
+    mainPanel(
+      leafletOutput("suicide_map",height = "75vh")
+      )
       )
     ),
-    mainPanel(leafletOutput("gdp_map")))
-  )
+
 )
 
 # Define the server function
