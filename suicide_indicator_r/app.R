@@ -20,11 +20,11 @@ library(bslib)
 
 # Read the dataset from the specified location
 dataset <-
-    read.csv("../data/master.csv")
+    read.csv("data/master.csv")
 
 # read in the world country spatial data frame
 world_spdf <- readOGR(
-    dsn = path.expand(paste0("../data/maps/")),
+    dsn = path.expand(paste0("data/maps/")),
     layer = "TM_WORLD_BORDERS-0-3",
     verbose = FALSE
 )
@@ -135,9 +135,9 @@ server <- function(input, output, session) {
         ) +
             geom_bar(stat = "identity", position = "stack") +
             labs(
-                title = sprintf(
-                    "                  Suicide Rate in %s and %s between
-                                        %s and %s by Gender",
+                title = sprintf("
+                                      Suicide Rate in %s and %s between
+                                                              %s and %s by Gender",
                     input$country1,
                     input$country2,
                     input$year_range[1],
