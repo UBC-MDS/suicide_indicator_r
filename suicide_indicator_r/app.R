@@ -90,25 +90,6 @@ ui <- navbarPage(
             mainPanel(leafletOutput("suicide_map", height = "75vh"))
         )
     ),
-
-    # Create the third tab of the app for displaying the GDP by country on a map
-    tabPanel(
-        "GDP by Country",
-        titlePanel("GDP by Country"),
-        sidebarLayout(
-            sidebarPanel(
-                sliderInput(
-                    "year_range",
-                    "Select Year Range:",
-                    min = 1987,
-                    max = 2017,
-                    value = c(1987, 2017),
-                    sep = ""
-                )
-            ),
-            mainPanel(leafletOutput("gdp_map"))
-        )
-    )
 )
 
 # Define the server function
