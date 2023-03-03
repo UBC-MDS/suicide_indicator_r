@@ -17,7 +17,7 @@ library(leaflet)
 
 # Read the dataset from the specified location
 dataset <-
-  read.csv("/Users/stepan_zaiatc/Desktop/suicide_indicator_r/data/master.csv")
+  read.csv("../data/master.csv")
 
 # Define the user interface (UI) for the shiny app
 # Create the first tab of the app for country-wide comparison
@@ -157,10 +157,49 @@ server <- function(input, output, session) {
 
 # Sample plots will go in here
   output$grouped_bars <- renderPlot({
-    ggplot(dataset, aes(x = year, y = 'suicides_100k_pop', fill = sex)) +
-      geom_bar(stat = "identity") +
-      labs(title = "Plot", x = "Plot", y = "Plot") +
-      theme_classic()
+    # data wrangling 
+    bar_data <- dataset |> filter(country == input$country1 | country == input$country2) |> 
+      filter(year >= input$year_range[1] &
+               year <= input$year_range[2]) |> 
+      group_by(country,age) |> summarise(suicides = sum(suicides_no, na.rm = TRUE),
+                                         population = sum(population,na.rm = TRUE),
+                                         suicides_100k_pop_recal = sum(suicides_no, na.rm = TRUE) / sum(population, na.rm=TRUE) * 100, 
+                                         .groups = 'drop') |> 
+      mutate(rank = case_when( # Used for axis order. 
+        age == "5-14 years" ~ 1,
+        age == "15-24 years" ~ 2,
+        age == "25-34 years" ~ 3,
+        age == "35-54 years" ~ 4,
+        age == "55-74 years" ~ 5,
+        age == "75+ years" ~ 6
+      )) |> pivot_longer(cols = 'country')
+    
+    
+    # Grouped bar chart
+    ggplot(bar_data, aes(x=reorder(age,rank), y=suicides, fill=value)) + 
+      geom_bar(stat='identity', position='dodge') +
+      labs(
+        title = sprintf(
+          "Suicide Counts in %s and %s between 
+          %s and %s by Gender",
+          input$country1,
+          input$country2,
+          input$year_range[1],
+          input$year_range[2]
+        ),
+        x = "Age group",
+        y = "Suicides counts"
+      ) +
+      theme_classic() +
+      scale_fill_manual(values = c("#D55E00", "#0072B2"), name = "Country:") +
+      theme(
+        strip.background = element_blank(),
+        strip.text = element_text(size = 12, face = "bold"),
+        legend.position = "bottom",
+        legend.title = element_text(size = 12, face = "bold"),
+        axis.text = element_text(angle=15),
+        plot.title= element_text(hjust = 0.5)
+      ) 
   })
   
   output$line_plot <- renderPlot({
