@@ -213,10 +213,98 @@ server <- function(input, output, session) {
     })
 
     output$line_plot <- renderPlot({
-        ggplot(dataset, aes(x = year, y = "suicides_100k_pop", fill = sex)) +
-            geom_bar(stat = "identity") +
-            labs(title = "Plot", x = "Plot", y = "Plot") +
-            theme_classic()
+      
+      #  wrangle the data for countries
+      country_data <- dataset |>
+        group_by(year, country) |>
+        summarise(
+          population = sum(population),
+          Suicides = sum(suicides_no) / (population) * 1000000,
+          GDP = sum(gdp_per_capita....)/n()) |>
+        ungroup() |> 
+        filter(country == input$country1 |
+                 country == input$country2) |>
+        filter(year >= input$year_range[1] &
+                 year <= input$year_range[2]) |>
+        select(year, country, Suicides, GDP)
+      
+      # label country data for faceting
+      dc1 <- country_data |>
+        select(year, country, Suicides) |>
+        mutate(Measure = 'Suicides')|>
+        rename("Value" = "Suicides" )
+      
+      dc2 <- country_data |>
+        select(year, country, GDP) |>
+        mutate(Measure = 'GDP')|>
+        rename("Value" = "GDP" )
+      
+      #  wrangle the data for world
+      world_data <- dataset |>
+        group_by(year) |>
+        summarise(
+          population = sum(population),
+          country = "World Average",
+          Suicides = sum(suicides_no) / (population) *1000000,
+          GDP = sum(gdp_per_capita....)/n()) |>
+        ungroup() |>
+        filter(year >= input$year_range[1] &
+                 year <= input$year_range[2]) |>
+        select(year, country, Suicides, GDP)
+      
+      #  label the world data for faceting
+      dw1 <- world_data |>
+        select(year, country, Suicides) |>
+        mutate(Measure = 'Suicides') |>
+        rename("Value" = "Suicides" )
+      
+      dw2 <- world_data |>
+        select(year, country, GDP) |>
+        mutate(Measure = 'GDP')|>
+        rename("Value" = "GDP" )
+      
+      # finalise dataframe after wrangling
+      df <- rbind(dw1,
+                  dw2,
+                  dc1, 
+                  dc2
+      )
+      
+      # plot to render
+      ggplot(df, aes(x = year, 
+                     y = Value, 
+                     color = country)
+      ) +
+        geom_line() +
+        geom_point() +
+        scale_color_manual(values = c("#D55E00",
+                                      "#0072B2",
+                                      "#E7B800"), 
+                           name = "Region") +
+        theme_bw() +
+        theme(
+          panel.background = element_blank(),
+          panel.grid.major = element_blank(), 
+          panel.grid.minor = element_blank(),
+          strip.text = element_text(size = 12, face = "bold"),
+          legend.position = "bottom",
+          legend.title = element_text(size = 12, face = "bold"),
+          plot.title= element_text(hjust = 0.5)
+        ) +
+        labs(x = "Year",
+             title = sprintf(
+               "Suicide per million and GDP in %s and %s between 
+          %s and %s",
+               input$country1,
+               input$country2,
+               input$year_range[1],
+               input$year_range[2]
+             )
+        ) +
+        facet_wrap(~Measure,
+                   scales = "free"
+        ) 
+      
     })
 
     # Suicide rate geographic world map
