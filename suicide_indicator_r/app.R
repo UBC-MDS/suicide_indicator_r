@@ -15,27 +15,18 @@ library(ggplot2)
 library(tidyverse)
 library(leaflet)
 library(RColorBrewer)
+library(rgdal)
 
 # Read the dataset from the specified location
 dataset <-
   read.csv("../data/master.csv")
 
-library(rgdal)
+# read in the world country spatial data frame
 world_spdf <- readOGR( 
   dsn= path.expand(paste0("../data/maps/")) , 
   layer="TM_WORLD_BORDERS-0-3",
   verbose=FALSE
 )
-
-# Clean the data object
-library(dplyr)
-world_spdf@data$POP2005[ which(world_spdf@data$POP2005 == 0)] = NA
-world_spdf@data$POP2005 <- as.numeric(as.character(world_spdf@data$POP2005)) / 1000000 %>% round(2)
-
-# Create a color palette for the map:
-mypalette <- colorNumeric( palette="viridis", domain=world_spdf@data$POP2005, na.color="transparent")
-mypalette(c(45,43))
-
 
 # Define the user interface (UI) for the shiny app
 # Create the first tab of the app for country-wide comparison
