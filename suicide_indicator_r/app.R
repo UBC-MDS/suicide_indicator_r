@@ -172,7 +172,7 @@ server <- function(input, output, session) {
       theme_classic()
   })
 
-# Heatmaps will go in here  
+  # Suicide rate geographic world map
   output$suicide_map <- renderLeaflet({
 
     # get the input year for reference throughout
@@ -212,8 +212,8 @@ server <- function(input, output, session) {
     # Prepare the text for tooltips:
     mytext <- paste(
       "Country: ", year_spdf@data$NAME,"<br/>", 
-      "Year: ", year_spdf@data$year, "<br/>",
-      "Suicides per 100k: ", round(year_spdf@data$suicides_100k_pop, 2), 
+      "Suicides per 100k: ", round(year_spdf@data$suicides_100k_pop, 2), "<br/>",
+      "GDP per capita: $", round(year_spdf@data$gdp_per_capita, 0), 
       sep="") %>%
       lapply(htmltools::HTML)
     
