@@ -234,15 +234,7 @@ server <- function(input, output, session) {
           direction = "auto"
         )
       ) %>%
-      addLegend( pal=mypalette, values=~population, opacity=0.9, title = "Suicides Per 100k", position = "bottomleft" )
-  })
-  
-  output$gdp_map <- renderLeaflet({
-    leaflet() %>%
-      addTiles() %>%
-      addMarkers(lng = -123.116226,
-                 lat = 49.246292,
-                 popup = "Vancouver")
+      addLegend( pal=mypalette, values=~population, opacity=0.9, title = "Suicides Per 100k", position = "topright" )
   })
   
 }
