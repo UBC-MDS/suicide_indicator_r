@@ -77,15 +77,17 @@ ui <- navbarPage(
         sidebarLayout(
             sidebarPanel(
                 sliderInput(
-                    "year_range",
-                    "Select Year Range:",
-                    min = 1987,
-                    max = 2017,
-                    value = c(1987, 2017),
-                    sep = ""
+                  "suicide_map_year",
+                  "Select Year:",
+                  min = 1987,
+                  max = 2017,
+                  value = 2007,
+                  sep = "",
+                  animate = FALSE
+                  # animationOptions(interval = 300, loop = TRUE) # runs to slow with updating
                 )
             ),
-            mainPanel(leafletOutput("suicide_map"))
+            mainPanel(leafletOutput("suicide_map", height = "75vh"))
         )
     ),
 
