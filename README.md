@@ -14,7 +14,7 @@ Here is the prototype for our planned dashboard.
 
 ![dash_prototype](./img/dash_design.png)
 
-## Usage
+## Usage and Deployment Link
 The deployment link for this `suicide_indicator_r` Shiny app can be found [here](https://zaiatc-stepan.shinyapps.io/suicide_indicator_r/).
 
 Usage examples:
@@ -24,7 +24,7 @@ Usage examples:
 
 <img src="suicide_indicators_shiny.gif" width="100%" />
 
-For those interested in using suicide_indicator_r dashboard:
+For those interested in using `suicide_indicator_r` dashboard:
 
 ## The Problem and its Importance
 
@@ -65,10 +65,6 @@ Current major problem with our dashboard is the delay of map showing up, which p
 A workaround for this might be restricting the size of data. Instead of showing worldwide map, we could show part of the map, continent with highest suicides counts etc, which could potentially decreases the delay but not solve the problem once and for all. However, this is not ideal as this kind of map is subjective to app developer and might not be helpful for the target people. 
 
 If you happens to know the solution to problem mentioned above, feel free to make a pull request and we will respond to your request in 5 work days. We really appreciate your help. Other requirements to make contributions to our repo please refer to [here](https://github.com/UBC-MDS/suicide_indicator_r/blob/main/CONTRIBUTING.md)
-
-## Deployment Link
-
-The deployment link for this suicide_indicator_r Shiny app can be found [here](INSERT LINK HERE).
 
 ## Authors
 
