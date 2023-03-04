@@ -48,6 +48,28 @@ The motivation behind this dashboard is that since increasing suicide rates is s
 
 The dashboard automatically updates in response to the user's inputs, and the user can modify their input using the slider and choice menus. Overall, by determining patterns and connections between suicide rates and socioeconomic characteristics, clinicians and researchers could learn more about socioeconomic factors affecting the suicide rates in different countries.
 
+## How can you download and contribute to dashboard? 
+
+### Download and run app locally
+
+- Fork the repo and navigate to `app.R` file. 
+- Go to [shinyApp.io](https://www.shinyapps.io/) and sign in/up. On the left-side menu, choose `Account -> tokens -> Add Token -> Show -> Show secret -> Copy to clipboard`. 
+- Back to Rstudio, go to top-right corner of source editor, click the button `Run App` and follow the instruction from there to set everything up. 
+
+### Contribute to dashboard
+
+First and foremost, **THANK YOU** for using and considering to contributing to our dashboard. 
+
+Current major problem with our dashboard is the delay of map showing up, which prevents us from making plot animate as there will be 5-10 seconds delay among different inputs. 
+
+A workaround for this might be restricting the size of data. Instead of showing worldwide map, we could show part of the map, continent with highest suicides counts etc, which could potentially decreases the delay but not solve the problem once and for all. However, this is not ideal as this kind of map is subjective to app developer and might not be helpful for the target people. 
+
+If you happens to know the solution to problem mentioned above, feel free to make a pull request and we will respond to your request in 5 work days. We really appreciate your help. Other requirements to make contributions to our repo please refer to [here](https://github.com/UBC-MDS/suicide_indicator_r/blob/main/CONTRIBUTING.md)
+
+## Deployment Link
+
+The deployment link for this suicide_indicator_r Shiny app can be found [here](INSERT LINK HERE).
+
 ## Authors
 
 - Qurat-ul-Ain Azim
