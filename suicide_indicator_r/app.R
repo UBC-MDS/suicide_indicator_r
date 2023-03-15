@@ -36,6 +36,17 @@ ui <- navbarPage(
     "Suicide Identification Dashboard",
     theme = bs_theme(bootswatch = "minty"),
     tabPanel(
+      "Trigger Warning",
+      titlePanel("Trigger Warning!!"),
+      mainPanel(
+          br(),
+          strong("This app contains sensitive information! The analysis contains information about suicides and some may find the information disturbing."),
+          br(),
+          br(),
+          strong("Please proceed to the next tabs only if this won't trigger you. Thank you"),
+      )
+    ),
+    tabPanel(
         "Country Wide Comparison",
         titlePanel("Country Wide Comparison"),
         sidebarLayout(
