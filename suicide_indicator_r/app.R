@@ -36,6 +36,17 @@ ui <- navbarPage(
     "Suicide Identification Dashboard",
     theme = bs_theme(bootswatch = "minty"),
     tabPanel(
+      "Trigger Warning",
+      titlePanel("Trigger Warning!!"),
+      mainPanel(
+          br(),
+          strong("This app contains sensitive information! The analysis contains information about suicides and some may find the information disturbing."),
+          br(),
+          br(),
+          strong("Please proceed to the next tabs only if this won't trigger you. Thank you"),
+      )
+    ),
+    tabPanel(
         "Country Wide Comparison",
         titlePanel("Country Wide Comparison"),
         sidebarLayout(
@@ -62,14 +73,21 @@ ui <- navbarPage(
                 )
             ),
             mainPanel(
-                splitLayout(
-                    plotOutput("stacked_bars"),
-                    plotOutput("grouped_bars")
+              tabsetPanel(
+                tabPanel("Gender and Age wise compaarison",
+                    splitLayout(
+                        plotOutput("stacked_bars"),
+                        plotOutput("grouped_bars")
+                    )
                 ),
-                verticalLayout(plotOutput("line_plot"))
+                tabPanel("Suicide and GDP trends",
+                         plotOutput("line_plot")
+                )
+                )
             )
         )
     ),
+    
     # Create the second tab of the app for displaying the suicide rate by country on a map
     tabPanel(
         "Suicide Rate by Country",
