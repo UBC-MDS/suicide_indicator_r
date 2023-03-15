@@ -73,14 +73,21 @@ ui <- navbarPage(
                 )
             ),
             mainPanel(
-                splitLayout(
-                    plotOutput("stacked_bars"),
-                    plotOutput("grouped_bars")
+              tabsetPanel(
+                tabPanel("Gender and Age wise compaarison",
+                    splitLayout(
+                        plotOutput("stacked_bars"),
+                        plotOutput("grouped_bars")
+                    )
                 ),
-                verticalLayout(plotOutput("line_plot"))
+                tabPanel("Suicide and GDP trends",
+                         plotOutput("line_plot")
+                )
+                )
             )
         )
     ),
+    
     # Create the second tab of the app for displaying the suicide rate by country on a map
     tabPanel(
         "Suicide Rate by Country",
