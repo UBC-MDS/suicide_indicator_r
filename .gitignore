@@ -4,8 +4,6 @@
 .DS_Store
 # Session Data files
 .RData
-# RS connect deployment files
-*rsconnect/
 
 # User-specific files
 .Ruserdata

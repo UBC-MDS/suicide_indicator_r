@@ -1,0 +1,14 @@
+name: suicide_indicator_r
+title: suicide_indicator_r
+username:
+account: tieandrews
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8591008
+bundleId: 6972450
+url: https://tieandrews.shinyapps.io/suicide_indicator_r/
+when: 1679075103.37133
+lastSyncTime: 1679075103.37138
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .github/workflows/deploy-app.yaml|.pytest_cache/.gitignore|.pytest_cache/CACHEDIR.TAG|.pytest_cache/README.md|.pytest_cache/v/cache/stepwise|archived/img/dash_design.png|archived/img/suicide_indicators_shiny.gif|CODE_OF_CONDUCT.md|CONTRIBUTING.md|doc/reflection-milestone2.md|LICENSE|proposal.md|README.html|README.md|report.html|report.Rmd
