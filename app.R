@@ -214,7 +214,6 @@ server <- function(input, output, session) {
       )
   })
   
-  # Sample plots will go in here
   output$grouped_bars <- renderPlot({
     # data wrangling
     bar_data <- dataset |>
@@ -226,7 +225,7 @@ server <- function(input, output, session) {
       summarise(
         suicides = sum(suicides_no, na.rm = TRUE),
         population = sum(population, na.rm = TRUE),
-        suicides_100k_pop_recal = sum(suicides_no, na.rm = TRUE) / sum(population, na.rm = TRUE) * 100,
+        suicides_pop = sum(suicides_no, na.rm = TRUE)* 1000000  / sum(population, na.rm = TRUE),
         .groups = "drop"
       ) |>
       mutate(
@@ -239,21 +238,22 @@ server <- function(input, output, session) {
           age == "55-74 years" ~ 5,
           age == "75+ years" ~ 6
         )
-      ) |>
-      pivot_longer(cols = "country")
+      )
+    
+    country_1 <- bar_data |> filter(country == input$country1)
+    country_2 <- bar_data |> filter(country == input$country2)
     
     
-    # Grouped bar chart
-    ggplot(bar_data, aes(
-      x = reorder(age, rank),
-      y = suicides,
-      fill = value
-    )) +
-      geom_bar(stat = "identity", position = "dodge") +
+    # Dumbbell plot
+    ggplot(bar_data) + geom_segment(data = country_1,
+                                    aes(x=suicides_pop, y=age, yend = age,xend=country_2$suicides_pop),
+                                    size = 4.5, #Note that I sized the segment to fit the points
+                                    alpha = .5) +
+      geom_point(aes(x = suicides_pop, y = age, color = country), size = 4, show.legend = TRUE) +
       labs(
         title = sprintf(
-          "Suicide Counts in %s and %s between
-           %s and %s by Age Group",
+          "                         Suicide Counts Per 1 million in %s and %s between
+                                                %s and %s by Age Group",
           input$country1,
           input$country2,
           input$year_range[1],
@@ -268,11 +268,10 @@ server <- function(input, output, session) {
         strip.background = element_blank(),
         strip.text = element_text(size = 12, face = "bold"),
         legend.position = "bottom",
-        legend.title = element_text(size = 12, face = "bold"),
-        axis.text = element_text(angle = 15),
-        plot.title = element_text(hjust = 0.5)
+        legend.title = element_text(size = 12, face = "bold")
       )
   })
+  
   
   output$line_plot <- renderPlot({
     #  wrangle the data for countries
