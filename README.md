@@ -31,7 +31,7 @@ Usage examples:
 - Select gender of interest from the navigation pane on the left-hand side to select/un-select suicide rate in-between gender comparison.
 - Hover over the selected regions on the map to view the suicide rates and GDP per country and region.
 
-<img src="suicide_indicators_shiny.gif" width="100%" />
+https://user-images.githubusercontent.com/112679383/226021791-5c2a4c7d-e9c5-48be-a1ee-84712ec86e58.mov
 
 ### Download and run app locally
 
