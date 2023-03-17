@@ -426,7 +426,8 @@ server <- function(input, output, session) {
       round(year_spdf@data$gdp_per_capita, 0),
       sep = ""
     ) %>%
-      lapply(htmltools::HTML)
+      lapply(function(x) ifelse(grepl("NA", x), "No Data", x)) %>% #, how = "replace"
+      lapply(htmltools::HTML) 
     
     # Final Map
     m <- leaflet(year_spdf) %>%
@@ -438,7 +439,7 @@ server <- function(input, output, session) {
         fillColor = ~ mypalette(suicides_100k_pop),
         stroke = TRUE,
         fillOpacity = 0.9,
-        color = "white",
+        color = "Gray",
         weight = 0.3,
         label = mytext,
         labelOptions = labelOptions(
