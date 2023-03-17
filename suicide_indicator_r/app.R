@@ -18,6 +18,7 @@ library(RColorBrewer)
 library(rgdal)
 library(bslib)
 library(plotly)
+
 # Read the dataset from the specified location and pre-processing
 raw_data <-
   read.csv("data/master.csv")
@@ -35,6 +36,7 @@ world_spdf <- readOGR(dsn = path.expand(paste0("data/maps/")),
 
 ui <- navbarPage(
   "Suicide Identification Dashboard",
+  id = "navs",
   theme = bs_theme(bootswatch = "minty"),
   tabPanel(
     "Trigger Warning",
@@ -89,6 +91,7 @@ ui <- navbarPage(
         ),
       ),
       mainPanel(tabsetPanel(
+        id = "tabs",
         tabPanel(
           "Gender and Age wise compaarison",
           splitLayout(plotOutput("stacked_bars"),
