@@ -18,6 +18,11 @@ library(RColorBrewer)
 library(rgdal)
 library(bslib)
 library(plotly)
+library(thematic)
+library(ragg)
+
+options(shiny.useragg = TRUE)
+thematic_shiny(font = "auto")
 
 # Read the dataset from the specified location and pre-processing
 raw_data <-
@@ -37,7 +42,10 @@ world_spdf <- readOGR(dsn = path.expand(paste0("data/maps/")),
 ui <- navbarPage(
   "Suicide Identification Dashboard",
   id = "navs",
-  theme = bs_theme(bootswatch = "minty"),
+  theme = bslib::bs_theme(
+    bg = "#F5F5F5", fg = "#333333", primary = "#2196F3",
+    base_font = bslib::font_google("Roboto")
+  ),
   tabPanel(
     "Trigger Warning",
     titlePanel("Trigger Warning!!"),
