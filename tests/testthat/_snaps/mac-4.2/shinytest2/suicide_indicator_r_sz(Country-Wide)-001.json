@@ -1,0 +1,152 @@
+{
+  "input": {
+    "country1": "Canada",
+    "country2": "United States",
+    "navs": "Country Wide Comparison",
+    "sex": "both",
+    "suicide_map_year": 2007,
+    "tabs": "Gender and Age wise compaarison",
+    "year_range": [
+      1999,
+      2005
+    ]
+  },
+  "output": {
+    "grouped_bars": {
+      "src": "[image data hash: cebfd8a6bab0d96f9b9b9fcee4d5f519]",
+      "width": 502,
+      "height": 400,
+      "alt": "Plot object",
+      "coordmap": {
+        "panels": [
+          {
+            "panel": 1,
+            "row": 1,
+            "col": 1,
+            "panel_vars": {
+
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "domain": {
+              "left": 0.4,
+              "right": 6.6,
+              "bottom": -4472.5,
+              "top": 93922.5,
+              "discrete_limits": {
+                "x": [
+                  "5-14 years",
+                  "15-24 years",
+                  "25-34 years",
+                  "35-54 years",
+                  "55-74 years",
+                  "75+ years"
+                ]
+              }
+            },
+            "mapping": {
+              "x": "reorder(age, rank)",
+              "y": "suicides",
+              "fill": "value"
+            },
+            "range": {
+              "left": 48.8418778058812,
+              "right": 496.520547945205,
+              "bottom": 317.902445749777,
+              "top": 38.2272263844706
+            }
+          }
+        ],
+        "dims": {
+          "width": 502,
+          "height": 400
+        }
+      }
+    },
+    "message": {
+      "html": "<div style='text-align:center;'>Welcome to the Suicide Identification Dashboard!<\/div><br/><br/><div style='text-align:center;'>The visualizations on this panel allow users to compare suicide rates and socio-economic factors between two selected countries. These graphs are designed to help users gain insights and understanding of the complex factors that contribute to suicide rates such as gender, age, countries GDP and to identify potential areas for intervention and prevention.<\/div><br/><br/>",
+      "deps": [
+
+      ]
+    },
+    "stacked_bars": {
+      "src": "[image data hash: d4a62f7d104bac72b7096af0828fc004]",
+      "width": 502,
+      "height": 400,
+      "alt": "Plot object",
+      "coordmap": {
+        "panels": [
+          {
+            "panel": 1,
+            "row": 1,
+            "col": 1,
+            "panel_vars": {
+              "panelvar1": "Canada"
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "domain": {
+              "left": 10301.725,
+              "right": 13074.275,
+              "bottom": -1.13751585871404e-05,
+              "top": 0.000238878330329948
+            },
+            "mapping": {
+              "x": "as.Date(paste0(year, \"-01-01\"))",
+              "y": "suicides_100k_pop_recal",
+              "fill": "sex",
+              "panelvar1": "country"
+            },
+            "range": {
+              "left": 54.9319349315069,
+              "right": 272.986515410959,
+              "bottom": 318.159866653163,
+              "top": 73.2503496721418
+            }
+          },
+          {
+            "panel": 2,
+            "row": 1,
+            "col": 2,
+            "panel_vars": {
+              "panelvar1": "United States"
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "domain": {
+              "left": 10301.725,
+              "right": 13074.275,
+              "bottom": -1.13751585871404e-05,
+              "top": 0.000238878330329948
+            },
+            "mapping": {
+              "x": "as.Date(paste0(year, \"-01-01\"))",
+              "y": "suicides_100k_pop_recal",
+              "fill": "sex",
+              "panelvar1": "country"
+            },
+            "range": {
+              "left": 278.465967465753,
+              "right": 496.520547945206,
+              "bottom": 318.159866653163,
+              "top": 73.2503496721418
+            }
+          }
+        ],
+        "dims": {
+          "width": 502,
+          "height": 400
+        }
+      }
+    }
+  },
+  "export": {
+
+  }
+}
