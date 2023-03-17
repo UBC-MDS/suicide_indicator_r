@@ -13,8 +13,8 @@
   },
   "output": {
     "grouped_bars": {
-      "src": "[image data hash: 7be933a64bb19554a2013be3724d7ba0]",
-      "width": 499,
+      "src": "[image data hash: b717e1ada03d3cf0d00b4ccffd94faf1]",
+      "width": 352,
       "height": 400,
       "alt": "Plot object",
       "coordmap": {
@@ -31,39 +31,41 @@
               "y": null
             },
             "domain": {
-              "left": 0.4,
-              "right": 6.6,
-              "bottom": -4472.5,
-              "top": 93922.5,
+              "left": -1.77987749527792,
+              "right": 184.228726552024,
+              "bottom": 0.4,
+              "top": 6.6,
               "discrete_limits": {
-                "x": [
-                  "5-14 years",
+                "y": [
                   "15-24 years",
                   "25-34 years",
                   "35-54 years",
+                  "5-14 years",
                   "55-74 years",
                   "75+ years"
                 ]
               }
             },
             "mapping": {
-              "x": "reorder(age, rank)",
-              "y": "suicides",
-              "fill": "value"
+              "x": "suicides_pop",
+              "y": "age",
+              "yend": "age",
+              "xend": "country_2$suicides_pop"
             },
             "range": {
-              "left": 48.8418778058812,
-              "right": 493.520547945205,
-              "bottom": 317.902445749777,
+              "left": 69.5881849315069,
+              "right": 346.520547945205,
+              "bottom": 329.64866493102,
               "top": 38.2272263844706
             }
           }
         ],
         "dims": {
-          "width": 499,
+          "width": 352,
           "height": 400
         }
-      }
+      },
+      "error": null
     },
     "message": {
       "html": "<div style='text-align:center;'>Welcome to the Suicide Identification Dashboard!<\/div><br/><br/><div style='text-align:center;'>The visualizations on this panel allow users to compare suicide rates and socio-economic factors between two selected countries. These graphs are designed to help users gain insights and understanding of the complex factors that contribute to suicide rates such as gender, age, countries GDP and to identify potential areas for intervention and prevention.<\/div><br/><br/>",
@@ -72,8 +74,8 @@
       ]
     },
     "stacked_bars": {
-      "src": "[image data hash: 134aa9767ab54c0a72cd8a849d608eba]",
-      "width": 499,
+      "src": "[image data hash: 16eab706f13bd4e813efc2f39b2117ef]",
+      "width": 352,
       "height": 400,
       "alt": "Plot object",
       "coordmap": {
@@ -103,7 +105,7 @@
             },
             "range": {
               "left": 54.9319349315069,
-              "right": 271.486515410959,
+              "right": 197.986515410959,
               "bottom": 318.159866653163,
               "top": 73.2503496721418
             }
@@ -132,18 +134,19 @@
               "panelvar1": "country"
             },
             "range": {
-              "left": 276.965967465753,
-              "right": 493.520547945206,
+              "left": 203.465967465753,
+              "right": 346.520547945206,
               "bottom": 318.159866653163,
               "top": 73.2503496721418
             }
           }
         ],
         "dims": {
-          "width": 499,
+          "width": 352,
           "height": 400
         }
-      }
+      },
+      "error": null
     }
   },
   "export": {
