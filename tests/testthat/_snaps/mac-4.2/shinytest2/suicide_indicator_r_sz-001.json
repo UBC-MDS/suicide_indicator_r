@@ -13,8 +13,8 @@
   },
   "output": {
     "grouped_bars": {
-      "src": "[image data hash: 2db2dcb5cdf4dbe7b418fe7877197bd4]",
-      "width": 502,
+      "src": "[image data hash: 7be933a64bb19554a2013be3724d7ba0]",
+      "width": 499,
       "height": 400,
       "alt": "Plot object",
       "coordmap": {
@@ -52,15 +52,15 @@
               "fill": "value"
             },
             "range": {
-              "left": 39.2798404913748,
-              "right": 496.520547945206,
-              "bottom": 326.099304978565,
+              "left": 48.8418778058812,
+              "right": 493.520547945205,
+              "bottom": 317.902445749777,
               "top": 38.2272263844706
             }
           }
         ],
         "dims": {
-          "width": 502,
+          "width": 499,
           "height": 400
         }
       }
@@ -72,8 +72,8 @@
       ]
     },
     "stacked_bars": {
-      "src": "[image data hash: 75a33c66f4c9829d20ce7d8ed713b6c5]",
-      "width": 502,
+      "src": "[image data hash: 134aa9767ab54c0a72cd8a849d608eba]",
+      "width": 499,
       "height": 400,
       "alt": "Plot object",
       "coordmap": {
@@ -102,9 +102,9 @@
               "panelvar1": "country"
             },
             "range": {
-              "left": 43.4631849315069,
-              "right": 267.252140410959,
-              "bottom": 325.980725139315,
+              "left": 54.9319349315069,
+              "right": 271.486515410959,
+              "bottom": 318.159866653163,
               "top": 73.2503496721418
             }
           },
@@ -132,15 +132,15 @@
               "panelvar1": "country"
             },
             "range": {
-              "left": 272.731592465753,
-              "right": 496.520547945206,
-              "bottom": 325.980725139315,
+              "left": 276.965967465753,
+              "right": 493.520547945206,
+              "bottom": 318.159866653163,
               "top": 73.2503496721418
             }
           }
         ],
         "dims": {
-          "width": 502,
+          "width": 499,
           "height": 400
         }
       }

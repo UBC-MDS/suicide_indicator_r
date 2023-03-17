@@ -18,11 +18,6 @@ library(RColorBrewer)
 library(rgdal)
 library(bslib)
 library(plotly)
-library(thematic)
-library(ragg)
-
-options(shiny.useragg = TRUE)
-thematic_shiny(font = "auto")
 
 # Read the dataset from the specified location and pre-processing
 raw_data <-
@@ -42,10 +37,6 @@ world_spdf <- readOGR(dsn = path.expand(paste0("data/maps/")),
 ui <- navbarPage(
   "Suicide Identification Dashboard",
   id = "navs",
-  theme = bslib::bs_theme(
-    bg = "#F5F5F5", fg = "#333333", primary = "#2196F3",
-    base_font = bslib::font_google("Roboto")
-  ),
   tabPanel(
     "Trigger Warning",
     titlePanel("Trigger Warning!!"),
@@ -147,12 +138,12 @@ server <- function(input, output, session) {
     )})
   output$message <- renderUI({
     HTML(paste("<div style='text-align:center;'>Welcome to the Suicide Identification Dashboard!</div>", "",
-    "<div style='text-align:center;'>The visualizations on this panel allow users to compare suicide rates and socio-economic factors between two selected countries. These graphs are designed to help users gain insights and understanding of the complex factors that contribute to suicide rates such as gender, age, countries GDP and to identify potential areas for intervention and prevention.</div>", "", "", sep="<br/>"
-  ))})
+               "<div style='text-align:center;'>The visualizations on this panel allow users to compare suicide rates and socio-economic factors between two selected countries. These graphs are designed to help users gain insights and understanding of the complex factors that contribute to suicide rates such as gender, age, countries GDP and to identify potential areas for intervention and prevention.</div>", "", "", sep="<br/>"
+    ))})
   output$message1 <- renderUI({
     HTML(paste("<div style='text-align:center;'>The animated maps displayed in this tab provides an intuitive way for users to explore the trends and patterns of suicide rates and GDP over time and across different regions of the world. This can help users to identify potential correlations and relationships between the two factors in terms of spatial arrangments.</div>", "", "", sep="<br/>"
     ))})
-
+  
   
   
   # Create reactive data for selected range of years and countries
@@ -188,8 +179,8 @@ server <- function(input, output, session) {
       labs(
         title = sprintf(
           "
-                                      Suicide Rate in %s and %s between
-                                                              %s and %s by Gender",
+                                       Suicide Rate in %s and %s between
+                                                               %s and %s by Gender",
           input$country1,
           input$country2,
           input$year_range[1],
@@ -262,7 +253,7 @@ server <- function(input, output, session) {
       labs(
         title = sprintf(
           "Suicide Counts in %s and %s between
-          %s and %s by Age Group",
+           %s and %s by Age Group",
           input$country1,
           input$country2,
           input$year_range[1],
@@ -365,7 +356,7 @@ server <- function(input, output, session) {
         x = "Year",
         title = sprintf(
           "Suicide per million and GDP in %s and %s between
-          %s and %s",
+           %s and %s",
           input$country1,
           input$country2,
           input$year_range[1],
@@ -434,8 +425,7 @@ server <- function(input, output, session) {
       round(year_spdf@data$gdp_per_capita, 0),
       sep = ""
     ) %>%
-      lapply(function(x) ifelse(grepl("NA", x), "No Data", x)) %>% #, how = "replace"
-      lapply(htmltools::HTML) 
+      lapply(htmltools::HTML)
     
     # Final Map
     m <- leaflet(year_spdf) %>%
@@ -447,7 +437,7 @@ server <- function(input, output, session) {
         fillColor = ~ mypalette(suicides_100k_pop),
         stroke = TRUE,
         fillOpacity = 0.9,
-        color = "Gray",
+        color = "white",
         weight = 0.3,
         label = mytext,
         labelOptions = labelOptions(
