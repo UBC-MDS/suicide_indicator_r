@@ -23,7 +23,7 @@ This application includes content that some may find sensitive. The analysis con
 This Shiny app is a tool based on the World Health Organization's suicide data that allows mental health researchers and service providers to analyze the suicide rates and related socio-economic factors in different regions of the world. The app features two main tabs, including animated maps showing the evolution of suicide numbers and GDP in the world, as well as visual representations for country-wise comparisons of data. The app aims to identify any trends and correlations between these factors to provide insights into suicide prevention and mental health care.
 
 ## Usage and Deployment Link
-The deployment link for this `suicide_indicator_r` Shiny app can be found [here](https://zaiatc-stepan.shinyapps.io/suicide_indicator_r/).
+The deployment link for this `suicide_indicator_r` Shiny app can be found [here](https://tieandrews.shinyapps.io/suicide_indicator_r/).
 
 Usage examples:
 - Select two countries to be compared from the navigation pane on the left-hand side to filter the plots by country.
