@@ -221,6 +221,7 @@ server <- function(input, output, session) {
                country == input$country2) |>
       filter(year >= input$year_range[1] &
                year <= input$year_range[2]) |>
+      mutate(age = as.factor(age)) |> 
       group_by(country, age) |>
       summarise(
         suicides = sum(suicides_no, na.rm = TRUE),
@@ -240,8 +241,8 @@ server <- function(input, output, session) {
         )
       )
     
-    country_1 <- bar_data |> filter(country == input$country1)
-    country_2 <- bar_data |> filter(country == input$country2)
+    country_1 <- bar_data |> filter(country == input$country1) |> complete(country,age, fill = list(suicides_pop = 0))
+    country_2 <- bar_data |> filter(country == input$country2) |> complete(country,age, fill = list(suicides_pop = 0))
     
     
     # Dumbbell plot
