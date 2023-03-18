@@ -1,0 +1,227 @@
+{
+  "input": {
+    "country1": "Brazil",
+    "country2": "United States",
+    "navs": "Country Wide Comparison",
+    "sex": "both",
+    "suicide_map_year": 2007,
+    "tabs": "Suicide and GDP trends",
+    "year_range": [
+      2005,
+      2011
+    ]
+  },
+  "output": {
+    "grouped_bars": {
+      "src": "[image data hash: 3b523bcdc1fd6f18d57034d15f8fcf74]",
+      "width": 365,
+      "height": 400,
+      "alt": "Plot object",
+      "coordmap": {
+        "panels": [
+          {
+            "panel": 1,
+            "row": 1,
+            "col": 1,
+            "panel_vars": {
+
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "domain": {
+              "left": -1.77987749527792,
+              "right": 184.228726552024,
+              "bottom": 0.4,
+              "top": 6.6,
+              "discrete_limits": {
+                "y": [
+                  "15-24 years",
+                  "25-34 years",
+                  "35-54 years",
+                  "5-14 years",
+                  "55-74 years",
+                  "75+ years"
+                ]
+              }
+            },
+            "mapping": {
+              "x": "suicides_pop",
+              "y": "age",
+              "yend": "age",
+              "xend": "country_2$suicides_pop"
+            },
+            "range": {
+              "left": 69.5881849315069,
+              "right": 359.520547945205,
+              "bottom": 329.64866493102,
+              "top": 38.2272263844706
+            }
+          }
+        ],
+        "dims": {
+          "width": 365,
+          "height": 400
+        }
+      }
+    },
+    "line_plot": {
+      "src": "[image data hash: 10f3d5c64f16853da9faad53212c93dc]",
+      "width": 729,
+      "height": 400,
+      "alt": "Plot object",
+      "coordmap": {
+        "panels": [
+          {
+            "panel": 1,
+            "row": 1,
+            "col": 1,
+            "panel_vars": {
+              "panelvar1": "GDP"
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "domain": {
+              "left": 2004.7,
+              "right": 2011.3,
+              "bottom": 2818.9,
+              "top": 55863.1
+            },
+            "mapping": {
+              "x": "year",
+              "y": "Value",
+              "colour": "country",
+              "panelvar1": "Measure"
+            },
+            "range": {
+              "left": 47.6038099315068,
+              "right": 373.020761986301,
+              "bottom": 329.64866493102,
+              "top": 58.9943496721418
+            }
+          },
+          {
+            "panel": 2,
+            "row": 1,
+            "col": 2,
+            "panel_vars": {
+              "panelvar1": "Suicides"
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "domain": {
+              "left": 2004.7,
+              "right": 2011.3,
+              "bottom": 45.5090633908065,
+              "top": 140.400460602517
+            },
+            "mapping": {
+              "x": "year",
+              "y": "Value",
+              "colour": "country",
+              "panelvar1": "Measure"
+            },
+            "range": {
+              "left": 398.103595890411,
+              "right": 723.520547945206,
+              "bottom": 329.64866493102,
+              "top": 58.9943496721418
+            }
+          }
+        ],
+        "dims": {
+          "width": 729,
+          "height": 400
+        }
+      }
+    },
+    "message": {
+      "html": "<div style='text-align:center;'>Welcome to the Suicide Identification Dashboard!<\/div><br/><br/><div style='text-align:center;'>The visualizations on this panel allow users to compare suicide rates and socio-economic factors between two selected countries. These graphs are designed to help users gain insights and understanding of the complex factors that contribute to suicide rates such as gender, age, countries GDP and to identify potential areas for intervention and prevention.<\/div><br/><br/>",
+      "deps": [
+
+      ]
+    },
+    "stacked_bars": {
+      "src": "[image data hash: 35ea00a7acd92a20afdf56bed03cc4dd]",
+      "width": 365,
+      "height": 400,
+      "alt": "Plot object",
+      "coordmap": {
+        "panels": [
+          {
+            "panel": 1,
+            "row": 1,
+            "col": 1,
+            "panel_vars": {
+              "panelvar1": "Canada"
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "domain": {
+              "left": 10301.725,
+              "right": 13074.275,
+              "bottom": -1.13751585871404e-05,
+              "top": 0.000238878330329948
+            },
+            "mapping": {
+              "x": "as.Date(paste0(year, \"-01-01\"))",
+              "y": "suicides_100k_pop_recal",
+              "fill": "sex",
+              "panelvar1": "country"
+            },
+            "range": {
+              "left": 54.9319349315069,
+              "right": 204.486515410959,
+              "bottom": 318.159866653163,
+              "top": 73.2503496721418
+            }
+          },
+          {
+            "panel": 2,
+            "row": 1,
+            "col": 2,
+            "panel_vars": {
+              "panelvar1": "United States"
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "domain": {
+              "left": 10301.725,
+              "right": 13074.275,
+              "bottom": -1.13751585871404e-05,
+              "top": 0.000238878330329948
+            },
+            "mapping": {
+              "x": "as.Date(paste0(year, \"-01-01\"))",
+              "y": "suicides_100k_pop_recal",
+              "fill": "sex",
+              "panelvar1": "country"
+            },
+            "range": {
+              "left": 209.965967465753,
+              "right": 359.520547945206,
+              "bottom": 318.159866653163,
+              "top": 73.2503496721418
+            }
+          }
+        ],
+        "dims": {
+          "width": 365,
+          "height": 400
+        }
+      }
+    }
+  },
+  "export": {
+
+  }
+}
